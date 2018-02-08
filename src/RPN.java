@@ -9,6 +9,7 @@ class RPN {
 
 
   public void loop() {
+	  
     Scanner in = new Scanner(System.in);
 
     final String prompt = "> ";
@@ -17,22 +18,92 @@ class RPN {
     while(in.hasNext()){
       if(in.hasNextInt()) {
         int x = in.nextInt();
-        System.out.println("Got an integer: " + x);
+        operands.push(x);
+       
+       print();
+     
       } else {
         String s=in.next();
         if(s.equals("quit")) {
           System.out.println("Quitting");
           break;
         }
-        System.out.println("Got a string: " + s);
+        
+        if(s.equals("+")) {
+        	
+        		int a = operands.pop();
+        
+        		int b = operands.pop();
+        
+        		int result = b + a;
+      
+        		operands.push(result);
+       
+        		print();
+
+        	}else if(s.equals("-")) {
+        	
+        		int a = operands.pop();
+        
+        		int b = operands.pop();
+        
+        		int result = b - a;
+      
+        		operands.push(result);
+       
+        		print();
+
+        	}else if(s.equals("*")) {
+        	
+        		int a = operands.pop();
+        
+        		int b = operands.pop();
+        
+        		int result = b * a;
+      
+        		operands.push(result);
+       
+        		print();
+
+        	}else if(s.equals("/")) {
+        	
+        		int a = operands.pop();
+        
+        		int b = operands.pop();
+        
+        		int result = b / a;
+      
+        		operands.push(result);
+       
+        		print();
+
+        	}
+        
       }
+     
       System.out.print(prompt);
     }
-
+    
   }
 
+  
+    public void print() {
+  	  
+    	 String result = "";
+    	
+  	  for(int i = 0; i < operands.size(); i++) {
+  		result +=  operands.get(i) + " ";
+  	  }
+  	  
+  	  System.out.println(result);
+  	  
+    }
+    
   public static void main (String[] args) {
     RPN calc = new RPN();
     calc.loop();
   }
+  
+  
+  
 }
