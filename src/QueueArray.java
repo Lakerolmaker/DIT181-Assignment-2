@@ -51,7 +51,12 @@ class QueueArray<Item> {
 	  }
 	  if(size() < arr.length) {
 //		  front = 0; //change this maybe
-	  		back++;
+		  back++;
+		  if(back == arr.length) {
+			  System.out.println("back returning to 0");
+			  back = 0;
+			  System.out.println("back after adding: " + back);
+		  }
 	  		arr[back] = x;//put new element in after incrementing bacc
 	  		size++;
 	  		System.out.println("back after adding: " + back);
@@ -111,7 +116,7 @@ class QueueArray<Item> {
 	    System.out.println(q.toString());
 	    q.enqueue(5);
 	    System.out.println(q.toString());
-	    q.enqueue(5);
+	    q.enqueue(6);
 	    System.out.println(q.toString());
 	    
 	    q.dequeue();
@@ -122,10 +127,15 @@ class QueueArray<Item> {
 	    System.out.println(q.toString());
 	    q.printArr();
 	    
-	    q.enqueue(5);
-	    System.out.println(q.toString());
+	    q.enqueue(7);
+//	    System.out.println(q.toString());
 	    q.printArr();
-//	    q.enqueue(5);
+	    q.enqueue(5);
+	    q.printArr();
+	    System.out.println(q.toString());
+	    q.enqueue(8);
+	    q.enqueue(9);
+	    q.enqueue(10);
 //	    System.out.println(q.toString());
 	   // q.enqueue(5);
 	    //System.out.println(q.getFront());
