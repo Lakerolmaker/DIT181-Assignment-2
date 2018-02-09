@@ -6,8 +6,6 @@ class QueueArray<Item> {
   //i added these
   private int front = 0;
   private int back = -1; //do we need a back or just use size() for this?? 
-  //we need a back because to know the size we have to know where it ends first 
-  //bruh you payin attention in class right
   
   // We need this pragma to avoid warnings triggerred by
   // the unsafe cast to Item[].
@@ -40,7 +38,7 @@ class QueueArray<Item> {
   }
   
   public void enqueue(Item x) {
-	 System.out.println("back before adding: " + back);
+//	 System.out.println("back before adding: " + back);
 	  if(size == arr.length) { //if the array is full resize
 		  System.out.println("array full, resizing");
 		  resize();
@@ -50,12 +48,14 @@ class QueueArray<Item> {
 		  size++;
 	  }
 	  if(size() < arr.length) {
+// if the queue is smaller than the array 
 //		  front = 0; //change this maybe
 		  back++;
 		  if(back == arr.length) {
+//check if back has reached the end of the array
 			  System.out.println("back returning to 0");
 			  back = 0;
-			  System.out.println("back after adding: " + back);
+//			  System.out.println("back after adding: " + back);
 		  }
 	  		arr[back] = x;//put new element in after incrementing bacc
 	  		size++;
@@ -68,12 +68,14 @@ class QueueArray<Item> {
     if (size == 0) {
     	 throw new IllegalArgumentException("Queue size must be non-negative");
     }
-    else {
-    	System.out.println("front before: " + front );
+//    	System.out.println("front before: " + front );
     	front++;
-    	size--;
-    	System.out.println("front after: " + front);
+    	if (front == arr.length) {
+    		System.out.println("front returning to 0");
+    		front = 0;
     }
+       	size--;
+    	System.out.println("front after: " + front);
 //    throw new UnsupportedOperationException();
   }
 
@@ -91,10 +93,10 @@ class QueueArray<Item> {
     StringBuilder res = new StringBuilder("{");
     if (size > 0) {
       res.append(arr[front].toString());
-      for (int i = 1; i < size; ++i) {
-        res.append(", ");
-        res.append(arr[i].toString());
-      }
+	      for (int i = 1; i < size; ++i) {
+	        res.append(", ");
+	        res.append(arr[i].toString());
+	    }
     }
     res.append("}");
     return res.toString();
@@ -118,24 +120,35 @@ class QueueArray<Item> {
 	    System.out.println(q.toString());
 	    q.enqueue(6);
 	    System.out.println(q.toString());
-	    
-	    q.dequeue();
-	    System.out.println(q.toString());
-	    q.dequeue();
-	    System.out.println(q.toString());
-	    q.dequeue();
-	    System.out.println(q.toString());
-	    q.printArr();
-	    
 	    q.enqueue(7);
-//	    System.out.println(q.toString());
+	    System.out.println(q.toString()); //tostring has problems when back goes over to 0
 	    q.printArr();
+	    System.out.println();
+	    
+	    q.dequeue();
+	    System.out.println(q.toString());
+	    q.dequeue();
+	    System.out.println(q.toString());
+	    q.dequeue();
+	    System.out.println(q.toString());
+	    q.printArr();
+	    System.out.println();
+	    
+//	    System.out.println(q.toString());
+//	    q.printArr();
 	    q.enqueue(5);
 	    q.printArr();
+//	    System.out.println(q.toString());
+//	    q.enqueue(8);
+//	    q.enqueue(9);
+//	    q.enqueue(10);
+//	    System.out.println(q.toString());
+//	    q.dequeue();
+//	    System.out.println(q.toString());
+	    q.dequeue();
 	    System.out.println(q.toString());
-	    q.enqueue(8);
-	    q.enqueue(9);
-	    q.enqueue(10);
+	    q.dequeue();
+	    q.printArr();
 //	    System.out.println(q.toString());
 	   // q.enqueue(5);
 	    //System.out.println(q.getFront());
