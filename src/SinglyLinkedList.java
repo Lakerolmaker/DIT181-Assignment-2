@@ -2,12 +2,13 @@
 class SinglyLinkedList<Item> {
   private int size = 0;
   private Node<Item> first;
-
+//the first node is created
 
   private static class Node<Item> implements MyStack{
     public Node<Item> next;
     public Item el;
-    
+//the next node is created
+
 	@Override
 	public void push(int i) {
 		// TODO Auto-generated method stub
@@ -54,6 +55,7 @@ class SinglyLinkedList<Item> {
       throw new UnsupportedOperationException();
     }
   }
+  
   public SinglyLinkedList() {
   }
 
@@ -62,11 +64,14 @@ class SinglyLinkedList<Item> {
   }
 
   public Item get(int n) {
-  
-	Node finder = first.next;
+  //complexity = O(n)
+	  if (n > size()) {
+		  throw new IllegalArgumentException("Index ouf of bounds");
+	  }
+	Node<Item> finder = first.next;
 
-	for(int i = 0; i < n; i++) {
-		
+	for(int i = 0; i < n + 1; i++) {
+		//this assumes that we do not know the length of the list, but we know size...
 		if(finder != null) {
 			finder =  finder.next;
 		}else {
@@ -129,7 +134,6 @@ class SinglyLinkedList<Item> {
 				}else {
 					break;
 				}
-				
 			}
 			  
 		  this.insertAt(index, finder.el);
@@ -160,7 +164,10 @@ class SinglyLinkedList<Item> {
 
 
   public static void main (String[] args) {
-    SinglyLinkedList<Integer> l = new SinglyLinkedList<Integer>();
-    System.out.println(l.size());
+    SinglyLinkedList<Integer> list = new SinglyLinkedList<Integer>();
+    System.out.println(list.size());
+    list.get(0);
+    
+    
   }
 }
