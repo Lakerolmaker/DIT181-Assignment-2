@@ -103,7 +103,7 @@ class SinglyLinkedList<Item> {
   }
 
   // Remove the element at index n from the list
-  public void removeAt(int n) {
+  public void removeAt(int n) { //N is the index where we should remove whatever object
   //  if (...)
   //    throw new IllegalArgumentException("Index ouf of bounds");
     throw new UnsupportedOperationException();
