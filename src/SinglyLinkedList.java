@@ -4,9 +4,40 @@ class SinglyLinkedList<Item> {
   private Node<Item> first;
 
 
-  private static class Node<Item> {
+  private static class Node<Item> implements MyStack{
     public Node<Item> next;
     public Item el;
+    
+	@Override
+	public void push(int i) {
+		// TODO Auto-generated method stub
+		
+	}
+	@Override
+	public void pop() {
+		// TODO Auto-generated method stub
+		
+	}
+	@Override
+	public boolean isEmpty() {
+		// TODO Auto-generated method stub
+		return false;
+	}
+	@Override
+	public void makeEmpty() {
+		// TODO Auto-generated method stub
+		
+	}
+	@Override
+	public void top() {
+		// TODO Auto-generated method stub
+		
+	}
+	@Override
+	public void topNPop() {
+		// TODO Auto-generated method stub
+		
+	}
   }
 
   public static class Iterator<Item> {
