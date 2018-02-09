@@ -31,16 +31,44 @@ class SinglyLinkedList<Item> {
   }
 
   public Item get(int n) {
-  //  if (...)
-  //    throw new IllegalArgumentException("Index ouf of bounds");
-    throw new UnsupportedOperationException();
+  
+	Node finder = first.next;
+
+	for(int i = 0; i < n; i++) {
+		
+		if(finder != null) {
+			finder =  finder.next;
+		}else {
+			throw new IllegalArgumentException("Index ouf of bounds");
+		}
+		
+	}
+	  return (Item) finder.el;
   }
 
   // Insert element x at index n in the list
   public void insertAt(int n, Item x) {
-  //  if (...)
-  //    throw new IllegalArgumentException("Index ouf of bounds");
-    throw new UnsupportedOperationException();
+
+	  Node finder = first.next;
+
+		for(int i = 0; i < n; i++) {
+			
+			if(finder != null) {
+				finder =  finder.next;
+			}else {
+				throw new IllegalArgumentException("Index ouf of bounds");
+			}
+			
+		}
+	  
+		Node newNode = new Node<Item>();
+		newNode.el = x;
+		
+		newNode.next = finder;
+		
+		finder.next = newNode;
+		
+  
   }
 
   // Remove the element at index n from the list
@@ -52,9 +80,32 @@ class SinglyLinkedList<Item> {
 
   // Reverse the list
   public void reverse() {
-  //  if (...)
-  //    throw new IllegalArgumentException("Queue size must be non-negative");
-    throw new UnsupportedOperationException();
+	 
+	  Node<Item> storage = first;
+	  int index = 0;
+	  
+	  for(int i = 0 ;  i < size - 1; i++) {
+  
+		  	Node<Item> finder = storage;
+		  	Node<Item> checker = storage;
+
+			for(int z = 0; z < size; z++) {
+				
+				checker =  finder.next;
+				
+				if(checker != null) {
+					finder =  finder.next;
+				}else {
+					break;
+				}
+				
+			}
+			  
+		  this.insertAt(index, finder.el);
+		  index++;
+	  }
+	  
+	  
   }
 
   public Iterator<Item> first() {
