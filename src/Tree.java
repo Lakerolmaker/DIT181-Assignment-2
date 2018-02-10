@@ -111,6 +111,9 @@ class Tree<Item extends Comparable<Item>> {
 
 	// Insert i into a binary search tree
 	public void insertBST(Item i) { // lucas
+		
+		
+		
 		throw new UnsupportedOperationException();
 	}
 
