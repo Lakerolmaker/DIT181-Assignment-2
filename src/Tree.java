@@ -81,11 +81,20 @@ class Tree<Item extends Comparable<Item>> {
   // Here is how to create a generic static method
   //private static <Item> int doSomething(Node<Item> n) {
   //}
+  
+  
 
   // Print the nodes of the tree in breadth-first order
-  public void printBFS() {
+  public void printBFS() { //lucas
     throw new UnsupportedOperationException();
   }
+
+  // Insert i into a binary search tree
+  public void insertBST(Item i) { //lucas
+    throw new UnsupportedOperationException();
+  }
+  
+  
 
   // Print the nodes of the tree in breadth-first order
   public static <Item extends Comparable<Item>> Tree<Item> BuildDFS() {
@@ -113,10 +122,6 @@ class Tree<Item extends Comparable<Item>> {
     throw new UnsupportedOperationException();
   }
 
-  // Insert i into a binary search tree
-  public void insertBST(Item i) {
-    throw new UnsupportedOperationException();
-  }
 
   public static void main(String[] args) {
     Tree<Integer> t = exampleTree();
