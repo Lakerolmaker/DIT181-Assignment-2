@@ -130,10 +130,33 @@ class Tree<Item extends Comparable<Item>> {
 
 	// Insert i into a binary search tree
 	public void insertBST(Item i) { // lucas
+		//we need to search for the place to put the new element,and insert it there
+		//if new element is less than current nodes value, go to left subtree, else if its bigger go to right
+		root = recursiveInsertion(root, i);
+	//	throw new UnsupportedOperationException();
+	}
+	public Node recursiveInsertion(Node<Item> root, Item el2) {
 		
-		
-		
-		throw new UnsupportedOperationException();
+		//Node root;
+		if(root == null) { //incase tree is empty - not sure if correct
+			root = new Node<Item>();
+			System.out.println();
+			System.out.println(el2);
+			System.out.println("root is:" + root);
+			root.el = el2;
+			return root;
+		}
+		//root = new Node<Integer>();
+		if((int)el2 < (int)root.el) { //tree is not empty, so continue down tree, if element is less go left, if element is more go right
+			System.out.println("left: " + el2);
+			System.out.println("left root is:" + root);
+			recursiveInsertion(root.left, el2);
+		}else if((int)el2 > (int)root.el) {
+			System.out.println("right: " + el2);
+			System.out.println("right root is:" + root);
+			recursiveInsertion(root.right, el2);
+		}	
+		return root;
 	}
 
 	// Print the nodes of the tree in breadth-first order
@@ -164,9 +187,22 @@ class Tree<Item extends Comparable<Item>> {
 
 	public static void main(String[] args) {
 		Tree<Integer> t = exampleTree();
+		Tree<Integer> tree = new Tree<>();
 		
 		t.printDFS();
+		System.out.println();
+		t.insertBST(20);
+		t.printBFS();
 		
+		tree.insertBST(50);
+        tree.insertBST(30);
+        tree.insertBST(20);
+        tree.insertBST(40);
+        tree.insertBST(70);
+        tree.insertBST(60);
+        tree.insertBST(80);
+		System.out.println("------");
+		tree.printBFS();
 	}
 
 }
