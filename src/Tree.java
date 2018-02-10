@@ -77,9 +77,28 @@ class Tree<Item extends Comparable<Item>> {
 
 	// Print the nodes of the tree in depth-first order
 	public void printDFS() {
-		// Use Sytem.out.println() and el.toString() to print the elements
-		throw new UnsupportedOperationException();
+		
+		System.out.println(root.el);
+		printDFSPPrinter(root.left);
+		printDFSPPrinter(root.right);
+		
 	}
+	
+	private void printDFSPPrinter(Node node) {
+		
+			System.out.println(node.el);
+		
+			if(node.left != null) {
+				printDFSPPrinter(node.left);
+			}
+			
+			if(node.right != null) {
+				printDFSPPrinter(node.right);
+			}
+			
+	}
+	
+
 
 	// Here is how to create a generic static method
 	// private static <Item> int doSomething(Node<Item> n) {
@@ -143,8 +162,8 @@ class Tree<Item extends Comparable<Item>> {
 	public static void main(String[] args) {
 		Tree<Integer> t = exampleTree();
 		
-		t.printBFS();
-		System.out.println();
+		t.printDFS();
+		
 	}
 
 }
