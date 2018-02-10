@@ -103,11 +103,30 @@ class SinglyLinkedList<Item> {
   }
 
   // Remove the element at index n from the list
-  public void removeAt(int n) { //N is the index where we should remove whatever object
-  //  if (...)
+  public void removeAt(int n) {
+	  
+	  Node finder = first;
+	  Node nextFinder = first;
+	  int counter = 0;
+	  while(nextFinder != null) {
+		  if(counter == n) {
+			  if(nextFinder == first) {
+				  first = nextFinder.next;
+			  }else {
+				  finder = nextFinder.next;
+			  }
+			  nextFinder.next = null;
+		  }
+		  finder = nextFinder;
+		  nextFinder = nextFinder.next;
+		  counter++;
+	  }
+	  
+	  //  if (...)
   //    throw new IllegalArgumentException("Index ouf of bounds");
-    throw new UnsupportedOperationException();
+  //  throw new UnsupportedOperationException();
   }
+
 
   // Reverse the list
   public void reverse() {
