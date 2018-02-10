@@ -40,19 +40,35 @@ class SinglyLinkedList<Item> {
 		
 	}
   }
-
+  
+////////////////////Iterator////////////////////////
   public static class Iterator<Item> {
+	  private int current;
+	  private SinglyLinkedList<Item> list;
+	  
     public Item next() {
-      throw new UnsupportedOperationException();
+    	//returns next item in collection
+    		if(hasNext() == true) {	return list.get(current + 1); }
+    		else {
+    			throw new UnsupportedOperationException();
+    		}
     }
     public boolean hasNext() {
-      throw new UnsupportedOperationException();
+    	if(current < list.size) {	return true; }
+    	if(current >= list.size) {	return false; }
+    	else { throw new UnsupportedOperationException(); }
     }
     public void insert(Item e) {
+    	
       throw new UnsupportedOperationException();
     }
     public void remove() {
+    	
       throw new UnsupportedOperationException();
+    }
+    
+    public void findPrevious(Item x) {
+    
     }
   }
   
@@ -86,23 +102,11 @@ class SinglyLinkedList<Item> {
   public void insertAt(int n, Item x) {
 
 	  Node finder = first.next;
-
-		for(int i = 0; i < n; i++) {
-			
-			if(finder != null) {
-				finder =  finder.next;
-			}else {
-				throw new IllegalArgumentException("Index ouf of bounds");
-			}
-			
-		}
 	  
-		Node newNode = new Node<Item>();
-		newNode.el = x;
-		
-		newNode.next = finder;
-		
-		finder.next = newNode;
+	  Node newNode = new Node<Item>();
+	  newNode.el = x;
+	  newNode.next = finder;
+	  finder.next = newNode;
 		
   
   }
