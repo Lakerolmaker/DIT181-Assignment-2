@@ -22,11 +22,84 @@ class QueueArray<Item> {
 		q.enqueue(5);
 		q.enqueue(5);
 		q.enqueue(5);
+		
+		q.printArr();
+		System.out.println(q.toString());
+		q.enqueue(4);
+		System.out.println(q.toString());
+		q.enqueue(5);
+		System.out.println(q.toString());
+		q.enqueue(6);
+		System.out.println(q.toString());
+		q.enqueue(7);
+		System.out.println(q.toString()); // tostring has problems when back goes over to 0
+		q.printArr();
+		System.out.println();
+
+		q.dequeue();
+		System.out.println(q.toString());
+		q.dequeue();
+		System.out.println(q.toString());
+		q.dequeue();
+		System.out.println(q.toString());
+		q.printArr();
+		System.out.println();
+
+		// System.out.println(q.toString());
+		// q.printArr();
+		q.enqueue(5);
+		System.out.println(q.toString());
+		q.printArr();
+		// System.out.println(q.toString());
+		q.enqueue(8);
+		System.out.println(q.toString());
+		q.printArr();
+
+		q.enqueue(9);
+		System.out.println(q.toString());
+		q.printArr();
+
+		q.enqueue(10);
+		System.out.println(q.toString());
+		q.printArr();
+		// System.out.println(q.toString());
+		// q.dequeue();
+		// System.out.println(q.toString());
+		q.dequeue();
+		System.out.println(q.toString());
+		
+		q.dequeue();
+		q.printArr();
+//		System.out.println(q.toString());
+		
+		q.dequeue();
+		q.printArr();
+		System.out.println(q.toString());
+		
+		q.dequeue();
+		q.printArr();
+		
+		q.dequeue();
+		System.out.println(q.toString());
+		q.printArr();
+		
+		q.dequeue();
+		q.dequeue();
+		q.dequeue();
+		// System.out.println(q.toString());
+		// q.enqueue(5);
+		// System.out.println(q.getFront());
+		// q.dequeue();
+		// q.enqueue(2);
+		System.out.println("front: " + q.getFront());
+		System.out.println("back: " + q.back);
+		System.out.println(q.toString());
 		// q.enqueue(5);
 		// System.out.println(q.getFront());
 		// q.dequeue();
 		// q.enqueue(2);
 		// System.out.println(q.getFront());
+		q.printArr();
 		System.out.println(q.toString());
 	}
 
@@ -36,33 +109,49 @@ class QueueArray<Item> {
 
 	public void resize() {
 		// need to cast the object as an item to be able to do this
-		Item[] temp = (Item[]) new Object[initial_size * 2]; // why cant we just use ints lol
-		System.out.println("in resize");
-		for (int i = 0; i < size; i++) {
-			temp[i] = arr[(front + i) % size()];
+		if (size == arr.length) {
+			Item[] newArr = (Item[]) new Object[arr.length * 2];
+			System.out.println("expanding...");
+			// copying queue
+			for (int i = 0; i < size; i++, front++) {
+				if (front == arr.length) {
+					front = 0;
+				}
+				newArr[i] = arr[front];
+			}
+			arr = newArr;
+			front = 0;
+			back = size - 1;
 		}
-
-		arr = temp;
-		front = 0;
-		back = size(); // dont need i think
+		if(size <= arr.length / 4) {
+			Item[] newArr = (Item[]) new Object[arr.length / 2];
+			System.out.println("shrinking...");
+			for (int i = 0; i < size; i++, front++) {
+				if (front == arr.length) {
+					front = 0;
+				}
+				newArr[i] = arr[front];
+			}
+			arr = newArr;
+			front = 0;
+			back = size - 1;
+		}
 
 	}
 
 	public void enqueue(Item x) {
-		System.out.println("back before adding new" + back);
+		// System.out.println("back before adding: " + back);
 		if (size == arr.length) { // if the array is full resize
 			System.out.println("array full, resizing");
 			resize();
 			// add the item
-			back++;
-			arr[back] = x;
-			size++;
 		}
 		if (size() < arr.length) {
 			// if the queue is smaller than the array
 			// front = 0; //change this maybe
 			back++;
-			if (back == arr.length) {  // check if back has reached the end of the array
+			if (back == arr.length) {
+				// check if back has reached the end of the array
 				System.out.println("back returning to 0");
 				back = 0;
 				// System.out.println("back after adding: " + back);
@@ -78,29 +167,58 @@ class QueueArray<Item> {
 		if (size == 0) {
 			throw new IllegalArgumentException("Queue size must be non-negative");
 		}
-		// System.out.println("front before: " + front );
-		front++; //add front first, and if after adding first becomes arr.length then make it 0/start of array
+
+		front++;
+		if (size <= arr.length/4) {
+			System.out.println("Queue small, shrinking");
+			resize();
+		}
 		if (front == arr.length) {
 			System.out.println("front returning to 0");
 			front = 0;
 		}
 		size--;
 		System.out.println("front after: " + front);
-		throw new UnsupportedOperationException();
+		// throw new UnsupportedOperationException();
+	}
+	
+	public Item getFront() {
+		if (size == 0) {
+			throw new IllegalArgumentException("Queue size must be non-negative");
+		}
+		if (size > 0) {
+			Integer frontItem = front;
+			return (Item) frontItem;
+		} else {
+			throw new UnsupportedOperationException();
+		}
 	}
 
 	// Represent the contents of the list as a String
 
 	public String toString() {
 		StringBuilder res = new StringBuilder("{");
+		int dummyfront = front;
 		if (size > 0) {
-			res.append(arr[front].toString());
-			for (int i = 1; i < size; ++i) {
+//		res.append(arr[front].toString());
+			for (int i = 0; i < size; ++i, dummyfront++) {
+				if(dummyfront == arr.length) {
+					dummyfront = 0;
+				}
 				res.append(", ");
-				res.append(arr[i].toString());
+				res.append(arr[dummyfront].toString());
 			}
 		}
 		res.append("}");
 		return res.toString();
+	}
+	
+	public void printArr() {
+		System.out.print("{");
+		for (int i = 0; i < arr.length; i++) {
+			System.out.print(arr[i] + " ");
+		}
+		System.out.print("}");
+		System.out.println();
 	}
 }
