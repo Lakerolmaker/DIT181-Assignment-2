@@ -1,47 +1,11 @@
 
-class SinglyLinkedList<Item> {
+class SinglyLinkedList<Item> implements MyStack {
 	private int size = 0;
 	private Node<Item> first;
 
-	private static class Node<Item> implements MyStack {
+	private static class Node<Item> {
 		public Node<Item> next;
 		public Item el;
-
-		@Override
-		public void push(int i) {
-			// TODO Auto-generated method stub
-
-		}
-
-		@Override
-		public void pop() {
-			// TODO Auto-generated method stub
-
-		}
-
-		@Override
-		public boolean isEmpty() {
-			// TODO Auto-generated method stub
-			return false;
-		}
-
-		@Override
-		public void makeEmpty() {
-			// TODO Auto-generated method stub
-
-		}
-
-		@Override
-		public void top() {
-			// TODO Auto-generated method stub
-
-		}
-
-		@Override
-		public void topNPop() {
-			// TODO Auto-generated method stub
-
-		}
 	}
 
 	public static class Iterator<Item> {
@@ -179,6 +143,42 @@ class SinglyLinkedList<Item> {
 		System.out.println(l.size());
 		
 		l.insertAt(0,1);
+		
+	}
+
+	@Override
+	public void push(int i) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void pop() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public boolean isEmpty() {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public void makeEmpty() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void top() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void topNPop() {
+		// TODO Auto-generated method stub
 		
 	}
 }
