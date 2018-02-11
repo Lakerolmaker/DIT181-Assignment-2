@@ -9,8 +9,8 @@ public interface MyStack {
 	
 	public void makeEmpty();
 	
-	public void top();
+	public int top();
 	
-	public void topNPop(); 
+	public int topNPop(); 
 	
 }

@@ -147,38 +147,45 @@ class SinglyLinkedList<Item> implements MyStack {
 	}
 
 	@Override
-	public void push(int i) {
-		// TODO Auto-generated method stub
-		
+	public void push(int i) {	//NOT DONE
+		first.next = first; //idk if this is correct
+		first = new Node(); ///this is not working and MyStack doesnt let me use item so idk what to do	
+	//	first.el = i;
 	}
 
 	@Override
 	public void pop() {
-		// TODO Auto-generated method stub
-		
+		if(!isEmpty()) {
+			first = first.next;
+		}
 	}
 
 	@Override
-	public boolean isEmpty() {
-		// TODO Auto-generated method stub
-		return false;
+	public boolean isEmpty() { //idk if correct
+		if(first == null) {
+			return true;
+		}
+		else return false;
 	}
 
 	@Override
-	public void makeEmpty() {
-		// TODO Auto-generated method stub
-		
+	public void makeEmpty() { //idk if correct
+		first = null;
 	}
 
 	@Override
-	public void top() {
-		// TODO Auto-generated method stub
-		
+	public int top() {
+		return (int)first.el;
 	}
 
 	@Override
-	public void topNPop() {
-		// TODO Auto-generated method stub
-		
+	public int topNPop() {
+		if(!isEmpty()) {
+			Node<Item> oldFirst = first; 
+			first = first.next;
+			return (int)oldFirst.el;
+		}else {
+			return -1;
+		}		
 	}
 }
