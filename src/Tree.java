@@ -78,10 +78,13 @@ class Tree<Item extends Comparable<Item>> {
 	// Print the nodes of the tree in depth-first order
 	public void printDFS() {
 		
-		System.out.println(root.el);
-		printDFSPPrinter(root.left);
-		printDFSPPrinter(root.right);
-		
+		if((root == null ) || root.el ==  null) {
+			throw new UnsupportedOperationException();
+		}else {
+			System.out.println(root.el);
+			printDFSPPrinter(root.left);
+			printDFSPPrinter(root.right);
+		}
 	}
 	
 	private void printDFSPPrinter(Node node) {
