@@ -1,4 +1,3 @@
-
 class SinglyLinkedList<Item> {
   private int size = 0;
   private Node<Item> first;
@@ -43,36 +42,84 @@ class SinglyLinkedList<Item> {
   
 ////////////////////Iterator////////////////////////
   public static class Iterator<Item> {
-	  private int current;
+	  private Node<Item> previousprevNode; //LUL I DONT KNOW HOW TO DO REMOVE IF I DONT DO THIS
+	  private Node<Item> prevNode; //previous node
+	  private Node<Item> currentNode; 
+	  private boolean removeTriggered;
+	  
 	  private SinglyLinkedList<Item> list;
 	  
+	  public Iterator(SinglyLinkedList<Item> list) {
+		  this.list = list;
+		  currentNode = list.first;
+		  prevNode = null;
+		  previousprevNode = null;
+		  removeTriggered = false;
+	  }
+/*	  public Iterator(Node<Item> anyNode, SinglyLinkedList<Item> list) {
+		  //problem with this is that there will be no prevnode and previousprev at the start.
+		  currentNode = anyNode;
+		  this.list = list;
+	  }
+*/	  
     public Item next() {
     	//returns next item in collection
-    		if(hasNext() == true) {	return list.get(current + 1); }
+    		if(hasNext() == true) {	
+    			previousprevNode = prevNode;
+    			prevNode = currentNode; 		// advance prevnode to current
+    			currentNode = currentNode.next; // advance currentnode to nextnode
+    			removeTriggered = false;
+    			return prevNode.el; 			// return the now advanced prev node
+    			}
     		else {
     			throw new UnsupportedOperationException();
     		}
     }
     public boolean hasNext() {
-    	if(current < list.size) {	return true; }
-    	if(current >= list.size) {	return false; }
+    	if(currentNode.next != null) {	return true; }
+    	if(currentNode.next == null) {	return false;}
     	else { throw new UnsupportedOperationException(); }
     }
     public void insert(Item e) {
-    	
-      throw new UnsupportedOperationException();
+    	Node<Item> newNode = new Node<Item>();
+    	newNode.el = e;
+    	if(prevNode != null) {
+    		prevNode = previousprevNode;	//push prevnode 1 step back aka make a free space
+    		previousprevNode.next = newNode;//point that node to the new node
+    		newNode.next = currentNode;		//point the newnode to the current node
+    	}
+    	if(prevNode == null) {
+    		prevNode = newNode;
+    		newNode.next = currentNode;
+    	}
+    	if(currentNode == null) {
+    		throw new UnsupportedOperationException();
+    	}
     }
     public void remove() {
-    	
-      throw new UnsupportedOperationException();
+    	if(prevNode == null || removeTriggered == false) { //cannot delete when current is at first
+			 throw new IllegalStateException();
+		}
+    	if(previousprevNode == null) {
+			currentNode = list.first;
+		}
+    	if (prevNode != null && previousprevNode != null) {	// in the middle
+			previousprevNode.next = currentNode; 			//connect the previousPrev to current, passing prev.
+		}													//same as word processor when backspacing
+		list.size--;										//reduce size
+		removeTriggered = true;
     }
     
-    public void findPrevious(Item x) {
-    
+    public Item retrieve() {
+    	if (currentNode != null) {
+    		return currentNode.el;
+    	}
+    	else { throw new UnsupportedOperationException(); }
     }
   }
   
   public SinglyLinkedList() {
+	  first = null;
   }
 
   public int size() {
@@ -152,9 +199,20 @@ class SinglyLinkedList<Item> {
 	  
 	  
   }
+  
+  public void printList (SinglyLinkedList<Item> list) {
+	  Iterator<Item> iterator = list.first();
+	  for(; iterator.hasNext(); iterator.next()) {
+		  System.out.print(" " + iterator.currentNode.el);
+	  }
+	  System.out.println();
+  }
 
   public Iterator<Item> first() {
-    throw new UnsupportedOperationException();
+//returns the first node, but in the book first() returns the first node in the list as well but is only for empty lists. Like a dud.
+	  Iterator<Item> itr = new Iterator<>(this);
+	  if(first == null) { throw new UnsupportedOperationException(); }
+	  return itr;
   }
 
   // Represent the contents of the list as a String
