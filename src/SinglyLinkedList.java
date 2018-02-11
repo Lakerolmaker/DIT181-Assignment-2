@@ -13,20 +13,75 @@ class SinglyLinkedList<Item> implements MyStack<Item> {
 	}
 
 	public static class Iterator<Item> {
+		private Node<Item> previousprevNode; //LUL I DONT KNOW HOW TO DO REMOVE IF I DONT DO THIS
+		  private Node<Item> prevNode; //previous node
+		  private Node<Item> currentNode; 
+		  private boolean removeTriggered;
+		  
+		  private SinglyLinkedList<Item> list;
+		  
+		  public Iterator(SinglyLinkedList<Item> list) {
+			  this.list = list;
+			  currentNode = list.first;
+			  prevNode = null;
+			  previousprevNode = null;
+			  removeTriggered = false;
+		  }
+	/*	  public Iterator(Node<Item> anyNode, SinglyLinkedList<Item> list) {
+			  //problem with this is that there will be no prevnode and previousprev at the start.
+			  currentNode = anyNode;
+			  this.list = list;
+		  }
+	*/	  
 		public Item next() {
-			throw new UnsupportedOperationException();
+			//returns next item in collection
+    		if(hasNext() == true) {	
+    			previousprevNode = prevNode;
+    			prevNode = currentNode; 		// advance prevnode to current
+    			currentNode = currentNode.next; // advance currentnode to nextnode
+    			removeTriggered = false;
+    			return prevNode.el; 			// return the now advanced prev node
+    			}
+    		else {
+    			throw new UnsupportedOperationException();
+    		}
 		}
 
 		public boolean hasNext() {
-			throw new UnsupportedOperationException();
+			if(currentNode != null) {	return true; }
+	    	if(currentNode == null) {	return false;}
+	    	else { throw new UnsupportedOperationException(); }
 		}
 
 		public void insert(Item e) {
-			throw new UnsupportedOperationException();
-		}
+			Node<Item> newNode = new Node<Item>();
+	    	newNode.el = e;
+	    	if(prevNode != null) {
+	    		prevNode = previousprevNode;	//push prevnode 1 step back aka make a free space
+	    		previousprevNode.next = newNode;//point that node to the new node
+	    		newNode.next = currentNode;		//point the newnode to the current node
+	    	}
+	    	if(prevNode == null) {
+	    		prevNode = newNode;
+	    		newNode.next = currentNode;
+	    	}
+	    	if(currentNode == null) {
+	    		throw new UnsupportedOperationException();
+	    	}
+	    }
 
 		public void remove() {
-			throw new UnsupportedOperationException();
+			if(prevNode == null || removeTriggered == false) { //cannot delete when current is at first
+				 throw new IllegalStateException();
+			}
+	    	if(previousprevNode == null) {
+				currentNode = list.first;
+			}
+	    	if (prevNode != null && previousprevNode != null) {	// in the middle
+				previousprevNode.next = currentNode; 			//connect the previousPrev to current, passing prev.
+			}													//same as word processor when backspacing
+			list.size--;										//reduce size
+			removeTriggered = true;
 		}
 	}
 
@@ -127,7 +182,7 @@ class SinglyLinkedList<Item> implements MyStack<Item> {
 
 	public static void main(String[] args) {
 		SinglyLinkedList<Integer> l = new SinglyLinkedList<Integer>();
-		
+
 		l.push(6);
 		l.push(5);
 		l.push(3);
@@ -136,7 +191,23 @@ class SinglyLinkedList<Item> implements MyStack<Item> {
 		
 		l.insertAt(3, 4);
 		
-		l.print();
+//		l.print();
+		Iterator<Integer> iterator = new Iterator<>(l);
+		
+//		System.out.println("current: " + iterator.currentNode.el);
+//		System.out.println("prevprev: " + iterator.previousprevNode.el);
+//		System.out.println("prev: " + iterator.prevNode.el);
+		
+		for ( ; iterator.hasNext() == true; iterator.next()) {
+			if(iterator.previousprevNode != null) {
+				System.out.println("prevprev: " + iterator.previousprevNode.el);
+			}
+			if(iterator.prevNode != null) {
+				System.out.println("prev: " + iterator.prevNode.el);
+			}
+			System.out.println("current: " + iterator.currentNode.el);
+			System.out.println();
+		}
 	}
 
 	@Override
@@ -144,6 +215,7 @@ class SinglyLinkedList<Item> implements MyStack<Item> {
 	public void push(Item x) {
 		Node newNode = new Node();
 		newNode.el = x;
+		
 		newNode.next = first;
 		first = newNode;
 		size++;
