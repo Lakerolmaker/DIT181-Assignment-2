@@ -1,7 +1,7 @@
 
-public interface MyStack {
+public interface MyStack<Item> {
 
-	public void push(int i);
+	public void push(Item x);
 	
 	public void pop();
 	

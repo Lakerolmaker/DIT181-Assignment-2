@@ -1,5 +1,5 @@
 
-class SinglyLinkedList<Item> implements MyStack {
+class SinglyLinkedList<Item> implements MyStack<Item> {
 	private int size = 0;
 	private Node<Item> first;
 
@@ -142,15 +142,20 @@ class SinglyLinkedList<Item> implements MyStack {
 		SinglyLinkedList<Integer> l = new SinglyLinkedList<Integer>();
 		System.out.println(l.size());
 		
-		l.insertAt(0,1);
-		
+		l.push(1);
+		l.push(2);
+		System.out.println("done");
 	}
 
 	@Override
-	public void push(int i) {	//NOT DONE
-		first.next = first; //idk if this is correct
-		first = new Node(); ///this is not working and MyStack doesnt let me use item so idk what to do	
-	//	first.el = i;
+	//: Adds value to a new node at the top of the stack
+	public void push(Item x) {
+
+		Node newNode = new Node();
+		newNode.el = x;
+		newNode.next = first;
+		first = newNode;
+		size++;
 	}
 
 	@Override
@@ -188,4 +193,5 @@ class SinglyLinkedList<Item> implements MyStack {
 			return -1;
 		}		
 	}
+
 }
