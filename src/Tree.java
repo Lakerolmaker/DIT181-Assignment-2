@@ -133,7 +133,26 @@ class Tree<Item extends Comparable<Item>> {
 
 	// Insert i into a binary search tree
 	public void insertBST(Item i) { // lucas
-		throw new UnsupportedOperationException();
+		//we need to search for the place to put the new element,and insert it there
+		//if new element is less than current nodes value, go to left subtree, else if its bigger go to right
+		root = recursiveInsertion(root, i);
+	//	throw new UnsupportedOperationException();
+	}
+	public Node recursiveInsertion(Node root, Item el2) {
+		
+		//Node root;
+		if(root == null) { //incase tree is empty - not sure if correct
+			root = new Node();
+			root.el = el2;
+			return root;
+		}
+		if((int)el2 <= (int)root.el) { //tree is not empty, so continue down tree, if element is less go left, if element is more go right
+			//to allow duplicates we must have <= to here (or >= on the other one)
+			root.left = recursiveInsertion(root.left, el2);
+		}else if((int)el2 > (int)root.el) {
+			root.right = recursiveInsertion(root.right, el2);
+		}	
+		return root;
 	}
 
 	// Print the nodes of the tree in breadth-first order
@@ -166,7 +185,12 @@ class Tree<Item extends Comparable<Item>> {
 		Tree<Integer> t = exampleTree();
 		
 		t.printDFS();
-		
+		System.out.println();
+		t.insertBST(50);
+		t.insertBST(4);
+
+		System.out.println("------");
+		t.printDFS();
 	}
 
 }
