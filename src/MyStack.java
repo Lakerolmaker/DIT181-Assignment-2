@@ -3,7 +3,7 @@ public interface MyStack<Item> {
 
 	public void push(Item x);
 	
-	public void pop();
+	public Item pop();
 	
 	public boolean isEmpty();
 	
