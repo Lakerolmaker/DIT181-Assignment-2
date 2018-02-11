@@ -181,23 +181,31 @@ class Tree<Item extends Comparable<Item>> {
 		root = removeRecursively(root, i);
 		throw new UnsupportedOperationException();
 	}
-	public Node removeRecursively(Node root, Item el2) {
-		
+	public Node<Item> removeRecursively(Node root, Item el2) {
+		Item min = (Item) root.el;
 		if(root == null) {
 			return root;
 		}
-		if((int)el2 < (int)root.el) { //go down the tree in left or right depending on the item value
+		if(el2 == root.el) { //when node to remove is found
+			if(root.left == null) { //if statements incase there is only 1 child of the node, either on left or right
+				return root.right;
+			}else if(root.right == null){
+				return root.right;
+			}
+			//if no if statements applied then the node must have 2 children that we need to take care of
+			//here we want the node on the right side (which will be the bigger one)		
+			while(root.left != null) {
+				//min = root.left.el2;
+				root = root.left;
+			}		
+			root.el = min;	 //probably wrong
+			root.right = removeRecursively(root.right, el2);
+		
+		}else if((int)el2 < (int)root.el) { //go down the tree in left or right depending on the item value
 			root.left = removeRecursively(root, el2); //keep going down looking on left side
 		}else if((int)el2 > (int)root.el) {
 			root.right = removeRecursively(root, el2); //keep going down looking on right side
-		}else{  //if our element is equal to an element in the list, we delete it
-			//now we have to consider if its a leaf element, and if not, how many children it has
-//			if() {
-//				
-//			}else if(){
-//				
-//			}
-		}	
+		}
 		return root;
 	}
 
