@@ -81,9 +81,10 @@ class SinglyLinkedList<Item> {
 
   public Item get(int n) {
   //complexity = O(n)
-	  if (n > size()) {
+	  if (n > size() || n < 0 ) {
 		  throw new IllegalArgumentException("Index ouf of bounds");
 	  }
+
 	Node<Item> finder = first.next;
 
 	for(int i = 0; i < n + 1; i++) {
@@ -113,7 +114,12 @@ class SinglyLinkedList<Item> {
 
   // Remove the element at index n from the list
   public void removeAt(int n) {
-  //  if (...)
+	  if(n > size || n < 1) {
+		  throw new IllegalArgumentException("Index Out of bounds");
+	  }
+	  if (first != null) {
+		  
+	  }
   //    throw new IllegalArgumentException("Index ouf of bounds");
     throw new UnsupportedOperationException();
   }
