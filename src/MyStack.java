@@ -3,14 +3,14 @@ public interface MyStack<Item> {
 
 	public void push(Item x);
 	
-	public void pop();
+	public Item pop();
 	
 	public boolean isEmpty();
 	
 	public void makeEmpty();
 	
-	public int top();
+	public Item top();
 	
-	public int topNPop(); 
+	public Item topNPop(); 
 	
 }
