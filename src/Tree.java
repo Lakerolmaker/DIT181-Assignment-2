@@ -177,8 +177,28 @@ class Tree<Item extends Comparable<Item>> {
 	}
 
 	// Remove i from a binary search tree
-	public void removeBST(Item i) {
+	public void removeBST(Item i) { //try to do this one L
+		root = removeRecursively(root, i);
 		throw new UnsupportedOperationException();
+	}
+	public Node removeRecursively(Node root, Item el2) {
+		
+		if(root == null) {
+			return root;
+		}
+		if((int)el2 < (int)root.el) { //go down the tree in left or right depending on the item value
+			root.left = removeRecursively(root, el2); //keep going down looking on left side
+		}else if((int)el2 > (int)root.el) {
+			root.right = removeRecursively(root, el2); //keep going down looking on right side
+		}else{  //if our element is equal to an element in the list, we delete it
+			//now we have to consider if its a leaf element, and if not, how many children it has
+//			if() {
+//				
+//			}else if(){
+//				
+//			}
+		}	
+		return root;
 	}
 
 	public static void main(String[] args) {

@@ -170,18 +170,18 @@ class SinglyLinkedList<Item> implements MyStack<Item> {
 	}
 
 	@Override
-	public int top() {
-		return (int)first.el;
+	public Item top() {
+		return first.el;
 	}
 
 	@Override
-	public int topNPop() {
+	public Item topNPop() {
 		if(!isEmpty()) {
 			Node<Item> oldFirst = first; 
 			first = first.next;
-			return (int)oldFirst.el;
+			return oldFirst.el;
 		}else {
-			return -1;
+			return null;
 		}		
 	}
 
