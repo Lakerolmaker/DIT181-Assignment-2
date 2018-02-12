@@ -169,7 +169,10 @@ class SinglyLinkedList<Item> implements MyStack<Item> {
 	}
 
 	public Iterator<Item> first() {
-		throw new UnsupportedOperationException();
+		//returns the first node, but in the book first() returns the first node in the list as well but is only for empty lists. Like a dud.
+		  Iterator<Item> itr = new Iterator<>(this);
+		  if(first == null) { throw new UnsupportedOperationException(); }
+		  return itr;
 	}
 
 	// Represent the contents of the list as a String
