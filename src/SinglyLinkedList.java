@@ -56,13 +56,15 @@ class SinglyLinkedList<Item> implements MyStack<Item> {
 		public void insert(Item e) {
 			Node<Item> newNode = new Node<Item>();
 	    	newNode.el = e;
+	    	
 	    	if(prevNode != null) {
-	    		prevNode = previousprevNode;	//push prevnode 1 step back aka make a free space
-	    		previousprevNode.next = newNode;//point that node to the new node
+	    		previousprevNode = prevNode;
+	    		prevNode = newNode;	//push prevnode 1 step back aka make a free space
+	    		previousprevNode.next = newNode;		//point that node to the new node
 	    		newNode.next = currentNode;		//point the newnode to the current node
 	    		list.size++;
 	    	}
-	    	if(prevNode == null) { //current = first
+	    	if(prevNode == null && currentNode!= null) { //current = first
 	    		prevNode = newNode;
 	    		newNode.next = currentNode;
 	    		newNode = list.first;
@@ -97,8 +99,7 @@ class SinglyLinkedList<Item> implements MyStack<Item> {
 
 	public Item get(int n) {
 
-		Node finder = first;
-		
+		Node<Item> finder = first;
 		
 		for (int i = 0; i < n; i++) {
 
@@ -109,7 +110,7 @@ class SinglyLinkedList<Item> implements MyStack<Item> {
 			}
 
 		}
-		return (Item) finder.el;
+		return finder.el;
 	}
 
 	// Insert element x at index n in the list
@@ -196,7 +197,7 @@ class SinglyLinkedList<Item> implements MyStack<Item> {
 		l.push(1);
 		
 		l.insertAt(3, 4);
-		
+		l.insertAt(4, 20);
 //		l.print();
 		Iterator<Integer> iterator = new Iterator<>(l);
 		
@@ -215,6 +216,28 @@ class SinglyLinkedList<Item> implements MyStack<Item> {
 			System.out.println(l.get(1));
 			System.out.println();
 		}
+		Iterator<Integer> itr2 = new Iterator<>(l);
+		System.out.println(l.first.el);
+		System.out.println(itr2.currentNode);
+		System.out.println(itr2.currentNode.el);
+		for( ; itr2.hasNext() == true; itr2.next()) {
+			itr2.insert(999);
+		}
+		for ( ; iterator.hasNext() == true; iterator.next()) {
+			if(iterator.previousprevNode != null) {
+				System.out.println("prevprev: " + iterator.previousprevNode.el);
+			}
+			if(iterator.prevNode != null) {
+				System.out.println("prev: " + iterator.prevNode.el);
+			}
+			System.out.println("current: " + iterator.currentNode.el);
+			System.out.println();
+		}
+		System.out.println("size: " + l.size());
+		for(int x = 0; x < 13; x++) {
+			System.out.println(l.get(x));
+		}
+		
 		
 	}
 
