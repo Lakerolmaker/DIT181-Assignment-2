@@ -62,9 +62,10 @@ class SinglyLinkedList<Item> implements MyStack<Item> {
 	    		newNode.next = currentNode;		//point the newnode to the current node
 	    		list.size++;
 	    	}
-	    	if(prevNode == null) {
+	    	if(prevNode == null) { //current = first
 	    		prevNode = newNode;
 	    		newNode.next = currentNode;
+	    		newNode = list.first;
 	    		list.size++;
 	    	}
 	    	if(currentNode == null) {
@@ -98,7 +99,7 @@ class SinglyLinkedList<Item> implements MyStack<Item> {
 
 		Node finder = first;
 		
-
+		
 		for (int i = 0; i < n; i++) {
 
 			if (finder != null) {
@@ -211,8 +212,10 @@ class SinglyLinkedList<Item> implements MyStack<Item> {
 				System.out.println("prev: " + iterator.prevNode.el);
 			}
 			System.out.println("current: " + iterator.currentNode.el);
+			System.out.println(l.get(1));
 			System.out.println();
 		}
+		
 	}
 
 	@Override
