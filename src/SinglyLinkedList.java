@@ -74,12 +74,17 @@ class SinglyLinkedList<Item> implements MyStack<Item> {
 	    		currentNode = newNode;
 	    		prevNode.next = newNode;
 	    		newNode.next = null;
+	    		list.size++;
 	    	}
 	    }
 
 		public void remove() {
-			if(prevNode == null || removeTriggered == false) { //cannot delete when current is at first
+			if(prevNode == null) { //cannot delete when current is at first
+				System.out.println("prevNode null");
 				 throw new IllegalStateException();
+			}
+			if( removeTriggered == false) {
+				System.out.println("trigger = true");
 			}
 	    	if(previousprevNode == null) {
 				currentNode = list.first;
