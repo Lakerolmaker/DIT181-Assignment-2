@@ -71,7 +71,9 @@ class SinglyLinkedList<Item> implements MyStack<Item> {
 	    		list.size++;
 	    	}
 	    	if(currentNode == null) {
-	    		throw new UnsupportedOperationException();
+	    		currentNode = newNode;
+	    		prevNode.next = newNode;
+	    		newNode.next = null;
 	    	}
 	    }
 
