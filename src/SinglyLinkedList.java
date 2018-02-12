@@ -67,7 +67,7 @@ class SinglyLinkedList<Item> implements MyStack<Item> {
 	    	if(prevNode == null && currentNode!= null) { //current = first
 	    		prevNode = newNode;
 	    		newNode.next = currentNode;
-	    		newNode = list.first;
+	    		list.first = newNode;
 	    		list.size++;
 	    	}
 	    	if(currentNode == null) {
@@ -234,7 +234,7 @@ class SinglyLinkedList<Item> implements MyStack<Item> {
 			System.out.println();
 		}
 		System.out.println("size: " + l.size());
-		for(int x = 0; x < 13; x++) {
+		for(int x = 0; x < 14 ; x++) {
 			System.out.println(l.get(x));
 		}
 		
