@@ -60,10 +60,12 @@ class SinglyLinkedList<Item> implements MyStack<Item> {
 	    		prevNode = previousprevNode;	//push prevnode 1 step back aka make a free space
 	    		previousprevNode.next = newNode;//point that node to the new node
 	    		newNode.next = currentNode;		//point the newnode to the current node
+	    		list.size++;
 	    	}
 	    	if(prevNode == null) {
 	    		prevNode = newNode;
 	    		newNode.next = currentNode;
+	    		list.size++;
 	    	}
 	    	if(currentNode == null) {
 	    		throw new UnsupportedOperationException();
