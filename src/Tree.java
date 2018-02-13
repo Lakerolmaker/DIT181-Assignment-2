@@ -177,7 +177,7 @@ class Tree<Item extends Comparable<Item>> {
 	}
 	
 	// Remove i from a binary search tree
-	public void removeBST(Item i) { //try to do this one L
+	public void removeBST(Item i) { //uses method: removeRecursively
 		root = removeRecursively(root, i);
 	//	throw new UnsupportedOperationException();
 	}
@@ -187,7 +187,7 @@ class Tree<Item extends Comparable<Item>> {
 		}
 		return minValue(node.left); //if the min wasnt found yet, keep going down to the left to reach the smaller n smaller numbers
 	}
-	public Node<Item> removeRecursively(Node root, Item el2) {
+	public Node<Item> removeRecursively(Node root, Item el2) { //uses method: minvalue
 		if(root == null) {
 			System.out.println("Binary search tree is empty...");
 			return root;
