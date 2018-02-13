@@ -220,18 +220,24 @@ class Tree<Item extends Comparable<Item>> {
 
 	public static void main(String[] args) {
 		Tree<Integer> t = exampleTree();
+		Tree<Integer> tree =new Tree<Integer>();
 		
-		t.printDFS();
+		//t.printDFS();
 		System.out.println();
-		t.insertBST(50);
-		t.insertBST(4);
+		tree.insertBST(50);
+		tree.insertBST(30);
+		tree.insertBST(20);
+		tree.insertBST(40);
+		tree.insertBST(70);
+		tree.insertBST(60);
+		tree.insertBST(80);
 
-		System.out.println("------");
-		t.printDFS();
+		System.out.println("before remove");
+		tree.printDFS();
 		System.out.println();
-		t.removeBST(8);
-		System.out.println();
-		t.printDFS();
+		tree.removeBST(50);
+		System.out.println("after remove");
+		tree.printDFS();
 	}
 
 }
