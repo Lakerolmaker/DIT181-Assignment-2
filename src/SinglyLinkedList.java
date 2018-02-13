@@ -1,4 +1,3 @@
-
 class SinglyLinkedList<Item> implements MyStack<Item> {
 	private int size = 0;
 	private Node<Item> first;
@@ -145,6 +144,7 @@ class SinglyLinkedList<Item> implements MyStack<Item> {
 
 	// Remove the element at index n from the list
 	public void removeAt(int n) { //IDK IF IT WORKS OR NOT
+		size--;
 		// n is the position in of the element we wanna delete
 		Node finder = first;
 		if (first == null) { // incase the list is empty
@@ -164,7 +164,7 @@ class SinglyLinkedList<Item> implements MyStack<Item> {
 		
 		Node nextNode = finder.next.next;	
 		finder.next = nextNode;
-
+		
 	}
 
 	// Reverse the list
@@ -195,6 +195,15 @@ class SinglyLinkedList<Item> implements MyStack<Item> {
 	 */
 
 	public static void main(String[] args) {
+		SinglyLinkedList<Integer> s = new SinglyLinkedList<Integer>();
+		 s.insertAt(0, 2);
+		 s.insertAt(1, 5);
+		 s.removeAt(0);
+	 
+		 System.out.println(s.size);
+		
+		
+		
 		SinglyLinkedList<Integer> l = new SinglyLinkedList<Integer>();
 
 		l.push(6);
@@ -248,8 +257,9 @@ class SinglyLinkedList<Item> implements MyStack<Item> {
 		
 	}
 
-	@Override
+	
 	//: Adds value to a new node at the top of the stack
+	
 	public void push(Item x) {
 		Node newNode = new Node();
 		newNode.el = x;
@@ -259,7 +269,7 @@ class SinglyLinkedList<Item> implements MyStack<Item> {
 		size++;
 	}
 
-	@Override
+	
 	public Item pop() {
 		if(!isEmpty()) {
 			first = first.next;
@@ -269,7 +279,7 @@ class SinglyLinkedList<Item> implements MyStack<Item> {
 		}
 	}
 
-	@Override
+	
 	public boolean isEmpty() { //idk if correct
 		if(first == null) {
 			return true;
@@ -277,17 +287,17 @@ class SinglyLinkedList<Item> implements MyStack<Item> {
 		else return false;
 	}
 
-	@Override
+	
 	public void makeEmpty() { //idk if correct
 		first = null;
 	}
 
-	@Override
+	
 	public Item top() {
 		return first.el;
 	}
 
-	@Override
+	
 	public Item topNPop() {
 		if(!isEmpty()) {
 			Node<Item> oldFirst = first; 
