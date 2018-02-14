@@ -269,7 +269,7 @@ class SinglyLinkedList<Item> implements MyStack<Item> {
 
 	
 	//: Adds value to a new node at the top of the stack
-	
+	@Override
 	public void push(Item x) {
 		Node newNode = new Node();
 		newNode.el = x;
@@ -279,7 +279,7 @@ class SinglyLinkedList<Item> implements MyStack<Item> {
 		size++;
 	}
 
-	
+	@Override
 	public Item pop() {
 		if(!isEmpty()) {
 			first = first.next;
@@ -289,7 +289,7 @@ class SinglyLinkedList<Item> implements MyStack<Item> {
 		}
 	}
 
-	
+	@Override
 	public boolean isEmpty() { //idk if correct
 		if(first == null) {
 			return true;
@@ -297,17 +297,17 @@ class SinglyLinkedList<Item> implements MyStack<Item> {
 		else return false;
 	}
 
-	
+	@Override
 	public void makeEmpty() { //idk if correct
 		first = null;
 	}
 
-	
+	@Override
 	public Item top() {
 		return first.el;
 	}
 
-	
+	@Override
 	public Item topNPop() {
 		if(!isEmpty()) {
 			Node<Item> oldFirst = first; 
