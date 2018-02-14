@@ -19,17 +19,18 @@ class Tree<Item extends Comparable<Item>> {
 		throw new UnsupportedOperationException();
 	}
 
-	// This method constructs the following
-	// example tree with 5 in the root:
-	//
-	// __5__
-	// / \
-	// / \
-	// 1 8
-	// \ / \
-	// 2 1 3
-	// / \
-	// 5 7
+	  // This method constructs the following
+	  // example tree with 5 in the root:
+	  //
+	  //      __5__
+	  //     /     \
+	  //    /       \
+	  //   1         8
+	  //    \       / \
+	  //     2     1   3
+	  //          / \
+	  //          5 7
+	
 	public static Tree<Integer> exampleTree() {
 		Node<Integer> t = new Node<Integer>();
 		t.el = 5;
