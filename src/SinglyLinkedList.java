@@ -233,6 +233,7 @@ class SinglyLinkedList<Item> implements MyStack<Item> {
 			System.out.println();
 		}
 		Iterator<Integer> itr2 = new Iterator<>(l);
+		
 		System.out.println(l.first.el);
 		System.out.println(itr2.currentNode);
 		System.out.println(itr2.currentNode.el);
@@ -253,6 +254,15 @@ class SinglyLinkedList<Item> implements MyStack<Item> {
 		for(int x = 0; x < 14 ; x++) {
 			System.out.println(l.get(x));
 		}
+		
+		Iterator<Integer> itr3 = l.first();
+		for( ; itr3.hasNext() == true; itr3.next()) {
+			itr3.insert(10000);
+		}
+		for(int x = 0; x < 14 ; x++) {
+			System.out.println(l.get(x));
+		}
+		
 		
 		
 	}
