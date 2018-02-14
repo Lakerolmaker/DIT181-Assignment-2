@@ -175,35 +175,54 @@ class Tree<Item extends Comparable<Item>> {
 	// Return the n-th element in DFS order.
 	// Throw an exception if index out of range.
 	public void nthDFS(int n) {
-		if(n > size(root)) {
+		if(n > size(root) || n < 1) {
 			System.out.println("n larger than size");
 			throw new UnsupportedOperationException();
 		}
-		Node<Item> foundNode = DFS(root, n);
-		System.out.println(foundNode.el);
+		else {
+			Node<Item> foundNode = nthNodeDFS(root, n);
+			if(foundNode == null || foundNode.el == null) {
+				System.out.println("node not found");
+			}
+			System.out.println(foundNode.el);	
+		}
 	}
-	public Node<Item> DFS(Node root, int n) {
-		Stack<Node> s = new Stack<Node>();
+	
+	public Node<Item> nthNodeDFS(Node root, int n) {
+		Stack<Node> stacc = new Stack<Node>();
 		int counter = 0;
 		Node<Item> foundNode = null;
-		s.add(root);
-		while (s.isEmpty() == false) {
-			Node x = s.pop();
+		stacc.add(root);
+		while (stacc.isEmpty() == false) {
+			Node xicc = stacc.pop();
 			counter ++;
-			System.out.println(counter);
+//			System.out.println(counter);
 		
-			if(x.right!=null && counter < n) { s.add(x.right); }
-			if(x.left!=null && counter < n) { s.add(x.left); }	
+			if(xicc.right!=null && counter < n) { stacc.add(xicc.right); }
+			if(xicc.left!=null && counter < n) { stacc.add(xicc.left); }	
 			if(counter == n) { 
-				
-				System.out.print(" " + x.el);
-				foundNode = x;
+				foundNode = xicc;
 				return foundNode;
 			}
-
-			System.out.println();
+//			System.out.println();
 		}
 		return foundNode;
+	}
+	
+	public void printDFSStack(Node root) {
+		Stack<Node> stacc = new Stack<Node>();
+		if(root == null) {
+			System.out.println("root is null");
+		}
+		stacc.add(root);
+		while (stacc.isEmpty() == false) {
+			Node xicc = stacc.pop();
+			System.out.print(xicc.el + " ");
+			
+			if(xicc.right!=null) { stacc.add(xicc.right); }
+			if(xicc.left!=null) { stacc.add(xicc.left); }
+		}
+		System.out.println();
 	}
 
 	// Check if the tree is a binary search tree
@@ -278,6 +297,23 @@ class Tree<Item extends Comparable<Item>> {
 		tree.removeBST(50);
 		System.out.println("after remove");
 		tree.printDFS();
+	
+		System.out.println();
+		System.out.println("size of example tree: " + t.size(t.root));
+		System.out.println("nthDFS: ");
+		
+		t.nthDFS(1);
+		t.nthDFS(5);
+		t.nthDFS(8);
+		
+		System.out.println("stack style print dfs");
+		t.printDFSStack(t.root);
+		System.out.println("printDFS: ");
+		t.printDFS();
+		System.out.println("printBFS: ");
+		t.printBFS();
+		
+//		tree.nthDFS(9); <== exception state
 	}
 
 }
