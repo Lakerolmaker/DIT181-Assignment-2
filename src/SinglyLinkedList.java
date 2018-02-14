@@ -82,11 +82,11 @@ class SinglyLinkedList<Item> implements MyStack<Item> {
 				System.out.println("prevNode null");
 				 throw new IllegalStateException();
 			}
-			if( removeTriggered == false) {
+			if( removeTriggered == true) {
 				System.out.println("trigger = true");
 			}
-	    	if(previousprevNode == null) {
-				currentNode = list.first;
+	    	if(previousprevNode == null) { 						// second 
+				list.first = currentNode;
 			}
 	    	if (prevNode != null && previousprevNode != null) {	// in the middle
 				previousprevNode.next = currentNode; 			//connect the previousPrev to current, passing prev.

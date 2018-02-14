@@ -176,50 +176,69 @@ class Tree<Item extends Comparable<Item>> {
 	public boolean findBST(Item i) {
 		throw new UnsupportedOperationException();
 	}
-
+	
 	// Remove i from a binary search tree
-	public void removeBST(Item i) { //try to do this one L
+	public void removeBST(Item i) { //uses method: removeRecursively
 		root = removeRecursively(root, i);
-		throw new UnsupportedOperationException();
+	//	throw new UnsupportedOperationException();
 	}
-	public Node<Item> removeRecursively(Node root, Item el2) {
-		Item min = (Item) root.el;
+	private Item minValue(Node node) { //recursive menthod to find the min element, keep calling the method until we hit null
+		if(node.left == null) {
+			return (Item)node.el;
+		}
+		return minValue(node.left); //if the min wasnt found yet, keep going down to the left to reach the smaller n smaller numbers
+	}
+	public Node<Item> removeRecursively(Node root, Item el2) { //uses method: minvalue
 		if(root == null) {
+			System.out.println("Binary search tree is empty...");
 			return root;
 		}
+		//to do if tree isnt empty:
 		if(el2 == root.el) { //when node to remove is found
-			if(root.left == null) { //if statements incase there is only 1 child of the node, either on left or right
-				return root.right;
-			}else if(root.right == null){
-				return root.right;
+			
+			if(root.left == null && root.right == null) { //the item has no children
+				root = null; //make the item null to delete it
+			}else if (root.left != null && root.right != null) { //if the item has 2 children
+				Item minimumRight = minValue(root.right);//find the smallest biggest element to replace the item with
+				root.el = minimumRight; //set the place of the old item to the item found
+				root.right = removeRecursively(root.right, minimumRight); //take care of the rest of the items
+			}else { //else if there is only 1 child:
+				Node nodeToDelete = root; //?? cuz its not rly root anymore, its the node of el2 (i should rename.. lol)
+				if(root.left != null) { //??
+					root = root.left;
+				}else {
+					root = root.right;
+				}
+				nodeToDelete = null;
 			}
-			//if no if statements applied then the node must have 2 children that we need to take care of
-			//here we want the node on the right side (which will be the bigger one)		
-			while(root.left != null) {
-				//min = root.left.el2;
-				root = root.left;
-			}		
-			root.el = min;	 //probably wrong
-			root.right = removeRecursively(root.right, el2);
-		
 		}else if((int)el2 < (int)root.el) { //go down the tree in left or right depending on the item value
-			root.left = removeRecursively(root, el2); //keep going down looking on left side
+			root.left = removeRecursively(root.left, el2); //keep going down looking on left side, if item to remove is smaller than the item we compare to
 		}else if((int)el2 > (int)root.el) {
-			root.right = removeRecursively(root, el2); //keep going down looking on right side
+			root.right = removeRecursively(root.right, el2); //keep going down looking on right side, if item we want to remove was bigger than the item we compare to
 		}
 		return root;
 	}
 
 	public static void main(String[] args) {
 		Tree<Integer> t = exampleTree();
+		Tree<Integer> tree =new Tree<Integer>();
 		
-		t.printDFS();
+		//t.printDFS();
 		System.out.println();
-		t.insertBST(50);
-		t.insertBST(4);
+		tree.insertBST(50);
+		tree.insertBST(30);
+		tree.insertBST(20);
+		tree.insertBST(40);
+		tree.insertBST(70);
+		tree.insertBST(60);
+		tree.insertBST(80);
 
-		System.out.println("------");
-		t.printDFS();
+		System.out.println("before remove");
+		tree.printDFS();
+		System.out.println();
+		tree.removeBST(50);
+		System.out.println("after remove");
+		tree.printDFS();
 	}
 
 }
