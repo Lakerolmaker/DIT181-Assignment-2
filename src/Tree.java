@@ -1,6 +1,7 @@
 import java.util.Collection;
 import java.util.LinkedList;
 import java.util.Queue;
+import java.util.Stack;
 
 class Tree<Item extends Comparable<Item>> {
 	// If the tree is empty, root is a null reference.
@@ -17,6 +18,16 @@ class Tree<Item extends Comparable<Item>> {
 
 	public int size() {
 		throw new UnsupportedOperationException();
+	}
+	public int size(Node<Item> node) {
+		if (node == null) {
+			return 0;
+		} else {
+			int counter = 0;
+			counter = 1 + size(node.left) + size(node.right);
+//			System.out.println("size counter: " + counter);
+			return counter;
+		}
 	}
 
 	  // This method constructs the following
@@ -164,7 +175,35 @@ class Tree<Item extends Comparable<Item>> {
 	// Return the n-th element in DFS order.
 	// Throw an exception if index out of range.
 	public void nthDFS(int n) {
-		throw new UnsupportedOperationException();
+		if(n > size(root)) {
+			System.out.println("n larger than size");
+			throw new UnsupportedOperationException();
+		}
+		Node<Item> foundNode = DFS(root, n);
+		System.out.println(foundNode.el);
+	}
+	public Node<Item> DFS(Node root, int n) {
+		Stack<Node> s = new Stack<Node>();
+		int counter = 0;
+		Node<Item> foundNode = null;
+		s.add(root);
+		while (s.isEmpty() == false) {
+			Node x = s.pop();
+			counter ++;
+			System.out.println(counter);
+		
+			if(x.right!=null && counter < n) { s.add(x.right); }
+			if(x.left!=null && counter < n) { s.add(x.left); }	
+			if(counter == n) { 
+				
+				System.out.print(" " + x.el);
+				foundNode = x;
+				return foundNode;
+			}
+
+			System.out.println();
+		}
+		return foundNode;
 	}
 
 	// Check if the tree is a binary search tree
