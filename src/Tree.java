@@ -4,6 +4,8 @@ import java.util.LinkedList;
 import java.util.Queue;
 import java.util.Stack;
 
+import org.omg.CosNaming.NamingContextPackage.NotFound;
+
 class Tree<Item extends Comparable<Item>> {
 	// If the tree is empty, root is a null reference.
 	protected Node<Item> root;
@@ -283,15 +285,17 @@ class Tree<Item extends Comparable<Item>> {
 			return (Item)node.el;
 		}
 		return minValue(node.left); //if the min wasnt found yet, keep going down to the left to reach the smaller n smaller numbers
+	
 	}
 	public Node<Item> removeRecursively(Node root, Item el2) { //uses method: minvalue
 		if(root == null) {
 			System.out.println("Binary search tree is empty...");
 			return root;
 		}
+		boolean found = false;
 		//to do if tree isnt empty:
 		if(el2 == root.el) { //when node to remove is found
-			
+			found = true;
 			if(root.left == null && root.right == null) { //the item has no children
 				root = null; //make the item null to delete it
 			}else if (root.left != null && root.right != null) { //if the item has 2 children
@@ -311,6 +315,14 @@ class Tree<Item extends Comparable<Item>> {
 			root.left = removeRecursively(root.left, el2); //keep going down looking on left side, if item to remove is smaller than the item we compare to
 		}else if((int)el2 > (int)root.el) {
 			root.right = removeRecursively(root.right, el2); //keep going down looking on right side, if item we want to remove was bigger than the item we compare to
+		}	
+		
+		if(!found) {  			//if element didnt exist in the array, idk if correct
+			try {
+				throw new NotFound();
+			} catch (NotFound e) {
+				e.printStackTrace();
+			}
 		}
 		return root;
 	}
