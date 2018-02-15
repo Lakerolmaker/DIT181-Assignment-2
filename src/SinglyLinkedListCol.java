@@ -1,6 +1,6 @@
 import java.util.Collection;
 
-class SinglyLinkedListCol<Item> implements MyStack<Item> {
+class SinglyLinkedListCol<Item> {
 	private int size = 0;
 	private Node<Item> first;
 
@@ -140,50 +140,62 @@ class SinglyLinkedListCol<Item> implements MyStack<Item> {
 		return itr;
 	}
 	
-	public Item[] toArray() {
-		
-	}
 	
 	public boolean add(Item item) {
-		   if(first == null) {
-			   Node<Item> newNode = new Node<>();
-			   newNode.el = item;
-			   first = newNode;
-		   } else {
-		      Node<Item> newNode = first;
-		      while(newNode.next != null) {
-		    	  newNode = newNode.next;
-		      }
-		      Node<Item> newTail = new Node<Item>();
-		      newTail.el = item;
-		      newTail.next = null;
-		      newNode.next = newTail;
-		      
-		   }
+		if (first == null) {
+			Node<Item> newNode = new Node<>();
+			newNode.el = item;
+			first = newNode;
+			size++;
+			return true;
+
+		} else {
+			Node<Item> newNode = first;
+			while (newNode.next != null) {
+				newNode = newNode.next;
+			}
+			Node<Item> newTail = new Node<Item>();
+			newTail.el = item;
+			newTail.next = null;
+			newNode.next = newTail;
+			size++;
+			return true;
+		}
 	}
 	
-	public boolean remove(Item item) {
-		
-	}
-	
-	public boolean addAll(Collection<? extends Item> items) {
-		
-	}
-	
-	public boolean removeAll(Collection<? extends Item> items) {
-		
+	public boolean remove(Item item) { // item is element
+		if (first == null) {
+			return false;
+		}
+		if (first.el.equals(item)) {
+			first = first.next;
+			return true;
+		}
+		Node<Item> chicken = first;
+		Node<Item> duck = null;
+
+		while (chicken != null && !chicken.el.equals(item)) { 
+			duck = chicken;
+			chicken = chicken.next;
+		}
+
+		if (chicken == null) { return false; }
+		// delete cur node
+		duck.next = chicken.next;
+		size--;
+		return true;
 	}
 	
 	public void clear() {
 		first = null;
 	}
 	
-	public boolean equals(Item item) {
-		
-	}
+//	public boolean equals(Item item) {
+//		
+//	}
 
 	// Insert element x at index n in the list
-	public void insertAt(int n, Item x) {
+/*	public void insertAt(int n, Item x) {
 		SinglyLinkedListCol<Item> newList = new SinglyLinkedListCol<Item>();
 		
 		for(int i = 0; i < n; i++) {
@@ -200,7 +212,7 @@ class SinglyLinkedListCol<Item> implements MyStack<Item> {
 		this.reverse();
 	}
 	
-
+*/
 	// Remove the element at index n from the list
 	public void removeAt(int n) { //IDK IF IT WORKS OR NOT
 		size--;
@@ -255,79 +267,82 @@ class SinglyLinkedListCol<Item> implements MyStack<Item> {
 
 	public static void main(String[] args) {
 		SinglyLinkedListCol<Integer> s = new SinglyLinkedListCol<Integer>();
-		 s.insertAt(0, 2);
-		 s.insertAt(1, 5);
-		 s.removeAt(0);
+
+//		 s.removeAt(0);
 	 
-		 System.out.println(s.size);
+//		 System.out.println(s.size);
 		
 		
 		
 		SinglyLinkedListCol<Integer> l = new SinglyLinkedListCol<Integer>();
 
-		l.push(6);
-		l.push(5);
-		l.push(3);
-		l.push(2);
-		l.push(1);
+		l.add(1);
+		l.add(2);
+		l.add(3);
+		l.add(4);
+		l.add(5);
+		// l.removeAt(2);
+		l.remove(3);
+		l.print();
+		l.remove(2);
+		System.out.println();
+		l.print();
+		System.out.println(l.remove(9));
 		
-		l.insertAt(3, 4);
-		l.insertAt(4, 20);
-//		l.print();
-		Iterator<Integer> iterator = new Iterator<>(l);
-		
-//		System.out.println("current: " + iterator.currentNode.el);
-//		System.out.println("prevprev: " + iterator.previousprevNode.el);
-//		System.out.println("prev: " + iterator.prevNode.el);
-		
-		for ( ; iterator.hasNext() == true; iterator.next()) {
-			if(iterator.previousprevNode != null) {
-				System.out.println("prevprev: " + iterator.previousprevNode.el);
-			}
-			if(iterator.prevNode != null) {
-				System.out.println("prev: " + iterator.prevNode.el);
-			}
-			System.out.println("current: " + iterator.currentNode.el);
-			System.out.println(l.get(1));
-			System.out.println();
-		}
-		Iterator<Integer> itr2 = new Iterator<>(l);
-		
-		System.out.println(l.first.el);
-		System.out.println(itr2.currentNode);
-		System.out.println(itr2.currentNode.el);
-		for( ; itr2.hasNext() == true; itr2.next()) {
-			itr2.insert(999);
-		}
-		for ( ; iterator.hasNext() == true; iterator.next()) {
-			if(iterator.previousprevNode != null) {
-				System.out.println("prevprev: " + iterator.previousprevNode.el);
-			}
-			if(iterator.prevNode != null) {
-				System.out.println("prev: " + iterator.prevNode.el);
-			}
-			System.out.println("current: " + iterator.currentNode.el);
-			System.out.println();
-		}
 		System.out.println("size: " + l.size());
-		for(int x = 0; x < 14 ; x++) {
-			System.out.println(l.get(x));
-		}
-		
-		Iterator<Integer> itr3 = l.first();
-		for( ; itr3.hasNext() == true; itr3.next()) {
-			itr3.insert(10000);
-		}
-		for(int x = 0; x < 14 ; x++) {
-			System.out.println(l.get(x));
-		}
-		
+//		Iterator<Integer> iterator = new Iterator<>(l);
+//		
+////		System.out.println("current: " + iterator.currentNode.el);
+////		System.out.println("prevprev: " + iterator.previousprevNode.el);
+////		System.out.println("prev: " + iterator.prevNode.el);
+//		
+//		for ( ; iterator.hasNext() == true; iterator.next()) {
+//			if(iterator.previousprevNode != null) {
+//				System.out.println("prevprev: " + iterator.previousprevNode.el);
+//			}
+//			if(iterator.prevNode != null) {
+//				System.out.println("prev: " + iterator.prevNode.el);
+//			}
+//			System.out.println("current: " + iterator.currentNode.el);
+//			System.out.println(l.get(1));
+//			System.out.println();
+//		}
+//		Iterator<Integer> itr2 = new Iterator<>(l);
+//		
+//		System.out.println(l.first.el);
+//		System.out.println(itr2.currentNode);
+//		System.out.println(itr2.currentNode.el);
+//		for( ; itr2.hasNext() == true; itr2.next()) {
+//			itr2.insert(999);
+//		}
+//		for ( ; iterator.hasNext() == true; iterator.next()) {
+//			if(iterator.previousprevNode != null) {
+//				System.out.println("prevprev: " + iterator.previousprevNode.el);
+//			}
+//			if(iterator.prevNode != null) {
+//				System.out.println("prev: " + iterator.prevNode.el);
+//			}
+//			System.out.println("current: " + iterator.currentNode.el);
+//			System.out.println();
+//		}
+//		System.out.println("size: " + l.size());
+//		for(int x = 0; x < 14 ; x++) {
+//			System.out.println(l.get(x));
+//		}
+//		
+//		Iterator<Integer> itr3 = l.first();
+//		for( ; itr3.hasNext() == true; itr3.next()) {
+//			itr3.insert(10000);
+//		}
+//		for(int x = 0; x < 14 ; x++) {
+//			System.out.println(l.get(x));
+//		}
+//		
 		
 		
 	}
 	
 	//: Adds value to a new node at the top of the stack
-	@Override
 	public void push(Item x) {
 		Node newNode = new Node();
 		newNode.el = x;
@@ -336,45 +351,45 @@ class SinglyLinkedListCol<Item> implements MyStack<Item> {
 		first = newNode;
 		size++;
 	}
-
-	@Override
-	public Item pop() {
-		if(!isEmpty()) {
-			first = first.next;
-			return first.el;
-		}else {
-			return null;
-		}
-	}
-
-	@Override
-	public boolean isEmpty() { //idk if correct
-		if(first == null) {
-			return true;
-		}
-		else return false;
-	}
-
-	@Override
-	public void makeEmpty() { //idk if correct
-		first = null;
-	}
-
-	@Override
-	public Item top() {
-		return first.el;
-	}
-
-	@Override	
-	public Item topNPop() {
-		if(!isEmpty()) {
-			Node<Item> oldFirst = first; 
-			first = first.next;
-			return oldFirst.el;
-		}else {
-			return null;
-		}		
-	}
+//
+//	@Override
+//	public Item pop() {
+//		if(!isEmpty()) {
+//			first = first.next;
+//			return first.el;
+//		}else {
+//			return null;
+//		}
+//	}
+//
+//	@Override
+//	public boolean isEmpty() { //idk if correct
+//		if(first == null) {
+//			return true;
+//		}
+//		else return false;
+//	}
+//
+//	@Override
+//	public void makeEmpty() { //idk if correct
+//		first = null;
+//	}
+//
+//	@Override
+//	public Item top() {
+//		return first.el;
+//	}
+//
+//	@Override	
+//	public Item topNPop() {
+//		if(!isEmpty()) {
+//			Node<Item> oldFirst = first; 
+//			first = first.next;
+//			return oldFirst.el;
+//		}else {
+//			return null;
+//		}		
+//	}
 
 	public void print() {
 		for(int i = 0 ; i < size; i++) {
