@@ -1,3 +1,4 @@
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.LinkedList;
 import java.util.Queue;
@@ -167,10 +168,47 @@ class Tree<Item extends Comparable<Item>> {
 		return root;
 	}
 
-	// Print the nodes of the tree in breadth-first order
-	public static <Item extends Comparable<Item>> Tree<Item> BuildDFS() {
-		throw new UnsupportedOperationException();
+	 // Print the nodes of the tree in breadth-first order
+	static int Treeindex = 0;
+	static ArrayList<Node<Integer>> TreeArr = new ArrayList<Node<Integer>>();
+	public static Tree<Integer> BuildDFS(int[] arr) {
+
+		for(int  i = 0 ; i < arr.length; i++) {
+			Node<Integer> node  = new Node<Integer>();
+			node.el = arr[i];
+			TreeArr.add(node);
+		}
+		
+		Tree<Integer> tree = new Tree<Integer>();
+
+		tree.root = buildTree(0);
+
+		return tree;
+		
 	}
+	
+	private static Node<Integer> buildTree(int index) {
+		
+		Node<Integer> temp = TreeArr.get(index);
+		Treeindex++;
+		
+		try {
+			
+			if(TreeArr.get(index + 1).el == temp.el *  2) {
+				temp.left = buildTree(index + 1);
+				
+			}
+			
+			if(temp.left.el.equals(TreeArr.get(Treeindex).el - 1)){
+				temp.right = buildTree(Treeindex);
+			}
+			
+		} catch (Exception e) {}
+
+		return temp;
+	}
+	
+	
 
 	// Return the n-th element in DFS order.
 	// Throw an exception if index out of range.
@@ -278,42 +316,12 @@ class Tree<Item extends Comparable<Item>> {
 	}
 
 	public static void main(String[] args) {
-		Tree<Integer> t = exampleTree();
-		Tree<Integer> tree =new Tree<Integer>();
+		//Tree<Integer> t = exampleTree();
 		
-		//t.printDFS();
-		System.out.println();
-		tree.insertBST(50);
-		tree.insertBST(30);
-		tree.insertBST(20);
-		tree.insertBST(40);
-		tree.insertBST(70);
-		tree.insertBST(60);
-		tree.insertBST(80);
-
-		System.out.println("before remove");
-		tree.printDFS();
-		System.out.println();
-		tree.removeBST(50);
-		System.out.println("after remove");
-		tree.printDFS();
-	
-		System.out.println();
-		System.out.println("size of example tree: " + t.size(t.root));
-		System.out.println("nthDFS: ");
+		int arr[] = {1, 2, 4, 5, 3};
+		Tree<Integer> tree = BuildDFS(arr);
 		
-		t.nthDFS(1);
-		t.nthDFS(5);
-		t.nthDFS(8);
-		
-		System.out.println("stack style print dfs");
-		t.printDFSStack(t.root);
-		System.out.println("printDFS: ");
-		t.printDFS();
-		System.out.println("printBFS: ");
-		t.printBFS();
-		
-//		tree.nthDFS(9); <== exception state
+		System.out.println("done");
 	}
 
 }

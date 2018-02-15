@@ -325,8 +325,7 @@ class SinglyLinkedListCol<Item> implements MyStack<Item> {
 		
 		
 	}
-
-/*	
+	
 	//: Adds value to a new node at the top of the stack
 	@Override
 	public void push(Item x) {
@@ -376,7 +375,7 @@ class SinglyLinkedListCol<Item> implements MyStack<Item> {
 			return null;
 		}		
 	}
-*/
+
 	public void print() {
 		for(int i = 0 ; i < size; i++) {
 			System.out.println(get(i));
