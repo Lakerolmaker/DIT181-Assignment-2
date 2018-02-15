@@ -119,6 +119,15 @@ class SinglyLinkedListCol<Item> {
 		}
 		return finder.el;
 	}
+	public int[] toArray() {
+		int[] array = new int[size];
+		int element = 0;
+		for(int i = 0 ; i < size; i++) {
+			element = (int) get(i);
+			array[i] = element;
+		}
+		return array;
+	}
 	
 	public boolean isEmpty() {
 		if (first == null) 	{ return true; }
@@ -214,7 +223,7 @@ class SinglyLinkedListCol<Item> {
 	
 */
 	// Remove the element at index n from the list
-	public void removeAt(int n) { //IDK IF IT WORKS OR NOT
+/*	public void removeAt(int n) { //IDK IF IT WORKS OR NOT
 		size--;
 		// n is the position in of the element we wanna delete
 		Node finder = first;
@@ -237,7 +246,7 @@ class SinglyLinkedListCol<Item> {
 		finder.next = nextNode;
 		
 	}
-
+*/
 	// Reverse the list
 	public void reverse() {
 
@@ -250,13 +259,13 @@ class SinglyLinkedListCol<Item> {
 		first =  l.getFirstNode();
 	}
 
-	public Iterator<Item> first() {
+/*	public Iterator<Item> first() {
 		//returns the first node, but in the book first() returns the first node in the list as well but is only for empty lists. Like a dud.
 		  Iterator<Item> itr = new Iterator<>(this);
 		  if(first == null) { throw new UnsupportedOperationException(); }
 		  return itr;
 	}
-
+*/
 	// Represent the contents of the list as a String
 	/*
 	 * public String toString() { StringBuilder res = new StringBuilder("{"); if
