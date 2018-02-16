@@ -147,7 +147,7 @@ class Tree<Item extends Comparable<Item>> {
 	}
 
 	// Insert i into a binary search tree
-	public void insertBST(Item i) { // lucas
+	public void insertBST(Item i) { //
 		//we need to search for the place to put the new element,and insert it there
 		//if new element is less than current nodes value, go to left subtree, else if its bigger go to right
 		root = recursiveInsertion(root, i);
