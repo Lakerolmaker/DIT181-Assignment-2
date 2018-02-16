@@ -123,7 +123,7 @@ class Tree<Item extends Comparable<Item>> {
 	// }
 
 	// Print the nodes of the tree in breadth-first order
-	public void printBFS() { // lucas. Method has O(n) complexity
+	public void printBFS() { // Method has O(n) complexity
 
 		if(exampleTree() == null) { //I DONT KNOW IF THIS if statement IS CORRECT 
 			throw new UnsupportedOperationException();
