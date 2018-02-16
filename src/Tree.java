@@ -214,7 +214,7 @@ class Tree<Item extends Comparable<Item>> {
 
 	// Return the n-th element in DFS order.
 	// Throw an exception if index out of range.
-	public void nthDFS(int n) {
+	public Item nthDFS(int n) {
 		if(n > size(root) || n < 1) {
 			System.out.println("n larger than size");
 			throw new UnsupportedOperationException();
@@ -224,7 +224,7 @@ class Tree<Item extends Comparable<Item>> {
 			if(foundNode == null || foundNode.el == null) {
 				System.out.println("node not found");
 			}
-			System.out.println(foundNode.el);	
+			return foundNode.el;	
 		}
 	}
 	
@@ -332,6 +332,7 @@ class Tree<Item extends Comparable<Item>> {
 		
 		int arr[] = {1, 2, 4, 5, 3};
 		Tree<Integer> tree = BuildDFS(arr);
+		System.out.println(tree.nthDFS(3));
 		
 		System.out.println("done");
 	}
